@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <title>Chat</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <ul id="messages"></ul>
+        <form id="form" autocomplete="off">
+            <input id="input" placeholder="Type your message here..." /><button class="button_send">Send</button>
+        </form>
+    </div>
+    <script>
+        const socket = io();
+
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        const messages = document.getElementById('messages');
+        const username = "{{ username }}"; // Correctly pass the username
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (input.value) {
+                const msg = input.value;
+                addMessage(msg, username, 'me');
+                socket.emit('message', {msg: msg, username: username});
+                input.value = '';
+            }
+        });
+
+        socket.on('message', function(data) {
+            const sender = data.username === username ? 'me' : 'other';
+            addMessage(data.msg, data.username, sender);
+        });
+
+        function addMessage(msg, username, sender) {
+            const item = document.createElement('li');
+            item.classList.add('message');
+            item.classList.add(sender === 'me' ? 'mine' : 'other');
+            item.innerHTML = `<strong>${username}: </strong>${msg}`;
+            messages.appendChild(item);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        window.onload = function() {
+            fetch('/get_messages')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(msg => {
+                        const sender = msg.username === username ? 'me' : 'other';
+                        addMessage(msg.text, msg.username, sender);
+                    });
+                });
+        };
+    </script>
+</body>
+</html>

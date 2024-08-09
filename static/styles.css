@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-image: url("tgbg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-end;
+    overflow: hidden;
+    position: relative;
+}
+
+ul#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    overflow-y: auto; /* Ushbu kod tepaga scroll qilish imkonini beradi */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-start; /* Xabarlar yuqoridan pastga joylashishi uchun */
+    height: 100%; /* Ekranni to'liq qamrab oladi */
+}
+
+.message {
+    margin-bottom: 10px;
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 5px;
+    word-wrap: break-word;
+    background-color: #d1e7dd;
+}
+
+.message.mine {
+    background-color: #ffffff;
+    margin-left: auto;
+    text-align: right;
+}
+
+.message.other {
+    background-color: #ffffff;
+    margin-right: auto;
+}
+
+form {
+    display: flex;
+    padding: 10px;
+    background-color: hwb(0 100% 0%);
+    border-top: 1px solid #ccc;
+    background-image: url("tgbg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+form input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+form .button_send {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    position:absolute;
+    right: 21px;
+    bottom: 11px;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+.edit-btn, .delete-btn {
+    margin-left: 10px;
+    background-color: #ff9800;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    background-color: #e68900;
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
